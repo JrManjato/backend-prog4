@@ -33,7 +33,7 @@ public class EmployeeController {
     public String index(@RequestParam("id") String employeeId, Model model) {
         Employee employee = service.getOne(employeeId);
         model.addAttribute("employee", employee);
-        return "details";
+        return "editProfile";
     }
 
     @GetMapping("/createEmployee")

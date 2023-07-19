@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1"/>
+    <link th:href="@{/styles/style.css}" rel="stylesheet"/>
+    <link th:href="@{/styles/custom-style.css}" rel="stylesheet"/>
+    <title>Spring Boot Application</title>
+    <script th:src="@{/scripts/index.js}" defer></script>
+</head>
+<body style="height: 100vh !important;">
+<div class="input">
+    <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data">
+        <h4>Edit Employee</h4>
+        <div class="mb-3 mt-5">
+            <label for="firstName" class="form-label">First name</label>
+            <input type="text" name="firstName" th:field="*{firstName}" class="form-control" id="firstName">
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last name</label>
+            <input type="text" name="lastName" th:field="*{lastName}" class="form-control" id="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="birthDate" class="form-label">Birthdate</label>
+            <input type="date" name="birthDate" th:field="*{birthDate}" class="form-control" id="birthDate"
+                   th:value="${employee.birthDate}"/>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" name="address" class="form-control" id="address" />
+        </div>
+
+        <div class="mb-3">
+            <label for="professional-email" class="form-label">Professional email</label>
+            <input type="email" name="professionalEmail" class="form-control" id="professional-email" />
+        </div>
+        <div class="mb-3">
+            <label for="personal-email" class="form-label">Personal email</label>
+            <input type="email" name="personalEmail" class="form-control" id="personal-email" />
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select id="gender">
+                <option value="Male">Male</option>
+                <option value="Female" selected>Female</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber" />
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Profile pic</label>
+            <div>
+                <img th:src="'data:image/jpeg;base64,' + ${employee.getImage()}" alt="image" class="img-container">
+            </div>
+            <input type="file" class="form-control" id="image" name="image"/>
+        </div>
+
+        <h2>National Identity Card</h2>
+        <div class="mb-3">
+            <label for="NicNumber" class="form-label">Nic Number</label>
+            <input type="number" name="NicNumber" class="form-control" id="NicNumber"/>
+        </div>
+        <div class="mb-3">
+                <label for="deliveryDate" class="form-label">Delivery Date</label>
+            <input type="date" name="deliveryDate" class="form-control" id="deliveryDate"/>
+        </div>
+        <div class="mb-3">
+            <label for="deliveryLocation" class="form-label">Delivery Location</label>
+            <input type="text" name="deliveryLocation" class="form-control" id="deliveryLocation" />
+        </div>
+
+        <div class="mb-3">
+            <label for="function" class="form-label">Function</label>
+            <input type="text" name="function" class="form-control" id="function" />
+        </div>
+
+        <div class="mb-3">
+            <label for="ChildrenNumber" class="form-label">Children's Number</label>
+            <input type="number" name="ChildrenNumber" class="form-control" id="ChildrenNumber"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="HireDate" class="form-label">Hire Date</label>
+            <input type="date" name="HireDate" class="form-control" id="HireDate"/>
+        </div>
+        <div class="mb-3">
+            <label for="departureDate" class="form-label">Departure Date</label>
+            <input type="date" name="departureDate" class="form-control" id="departureDate"/>
+        </div>
+        <div class="mb-3">
+            <label for="socio-professional-category" class="form-label">Socio-professional Category</label>
+            <input type="text" name="socioProfessionalCategory" class="form-control" id="socio-professional-category"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="CnapsNumber" class="form-label">CNAPS Number</label>
+            <input type="text" name="CnapsNumber" class="form-control" id="CnapsNumber"/>
+        </div>
+        <div class="button-container d-flex align-items-center justify-content-around">
+            <button class="btn btn-success" type="submit">Update</button>
+            <button class="btn btn-secondary" type="button"><a href="/">Cancel</a></button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

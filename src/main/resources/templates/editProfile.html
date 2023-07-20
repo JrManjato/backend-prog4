@@ -8,10 +8,10 @@
     <title>Spring Boot Application</title>
     <script th:src="@{/scripts/index.js}" defer></script>
 </head>
-<body style="height: 100vh !important;">
+<body>
 <div class="input">
     <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data">
-        <h4>Edit Employee</h4>
+        <h4 class="mb-5">Edit Employee</h4>
         <div class="mb-3 d-flex flex-row">
             <div class="img-container">
                 <img th:src="'data:image/jpeg;base64,' + ${employee.getImage()}" alt="image" height="120" width="120"/>
@@ -22,13 +22,13 @@
             </div>
             <div class="d-flex flex-column">
                 <h3 th:text="${employee.firstName} + ' ' + ${employee.lastName}"></h3>
-                <h4>Business Analyst</h4>
-                <h5 th:text="${employee.registrationNumber}"></h5>
+                <h4 class="function-info">Business Analyst</h4>
+                <h5 th:text="${employee.registrationNumber}" class="ref"></h5>
             </div>
         </div>
         <h5>General Information</h5>
         <div class="d-flex flex-row">
-            <div class="mb-3">
+            <div class="mb-3 me-5">
                 <label for="firstName" class="form-label">First name</label>
                 <input type="text" name="firstName" th:field="*{firstName}" class="form-control" id="firstName">
             </div>
@@ -38,8 +38,8 @@
             </div>
         </div>
         <div class="d-flex flex-row">
-            <div class="mb-3">
-                <label for="gender" class="form-label">Gender</label><br />
+            <div class="mb-3 me-5">
+                <label for="gender" class="form-label">Gender</label><br/>
                 <select id="gender">
                     <option value="Male">Male</option>
                     <option value="Female" selected>Female</option>
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="d-flex flex-row">
-            <div class="mb-3">
+            <div class="mb-3 me-5">
                 <label for="address" class="form-label">Address</label>
                 <input type="text" name="address" class="form-control" id="address"/>
             </div>
@@ -62,56 +62,65 @@
             </div>
         </div>
         <h5>Job Information</h5>
-        <div class="mb-3">
-            <label for="function" class="form-label">Function</label>
-            <input type="text" name="function" class="form-control" id="function"/>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="function" class="form-label">Function</label>
+                <input type="text" name="function" class="form-control" id="function"/>
+            </div>
+            <div class="mb-3">
+                <label for="socio-professional-category" class="form-label">Socio-professional Category</label>
+                <input type="text" name="socioProfessionalCategory" class="form-control"
+                       id="socio-professional-category"/>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="JoiningDate" class="form-label">Joining Date</label>
-            <input type="date" name="JoiningDate" class="form-control" id="JoiningDate"/>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="JoiningDate" class="form-label">Joining Date</label>
+                <input type="date" name="JoiningDate" class="form-control" id="JoiningDate"/>
+            </div>
+            <div class="mb-3">
+                <label for="departureDate" class="form-label">Departure Date</label>
+                <input type="date" name="departureDate" class="form-control" id="departureDate"/>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="departureDate" class="form-label">Departure Date</label>
-            <input type="date" name="departureDate" class="form-control" id="departureDate"/>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"/>
+            </div>
+            <div class="mb-3">
+                <label for="professional-email" class="form-label">Professional email</label>
+                <input type="email" name="professionalEmail" class="form-control" id="professional-email"/>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="socio-professional-category" class="form-label">Socio-professional Category</label>
-            <input type="text" name="socioProfessionalCategory" class="form-control" id="socio-professional-category"/>
+        <h5>National Identity Card</h5>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="NicNumber" class="form-label">NIC Number</label>
+                <input type="number" name="NicNumber" class="form-control" id="NicNumber"/>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="phoneNumber" class="form-label">Phone Number</label>
-            <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber"/>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="deliveryLocation" class="form-label">Delivery Location</label>
+                <input type="text" name="deliveryLocation" class="form-control" id="deliveryLocation"/>
+            </div>
+            <div class="mb-3">
+                <label for="deliveryDate" class="form-label">Delivery Date</label>
+                <input type="date" name="deliveryDate" class="form-control" id="deliveryDate"/>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label for="professional-email" class="form-label">Professional email</label>
-            <input type="email" name="professionalEmail" class="form-control" id="professional-email"/>
-        </div>
-        <h2>National Identity Card</h2>
-        <div class="mb-3">
-            <label for="NicNumber" class="form-label">Nic Number</label>
-            <input type="number" name="NicNumber" class="form-control" id="NicNumber"/>
-        </div>
-        <div class="mb-3">
-            <label for="deliveryDate" class="form-label">Delivery Date</label>
-            <input type="date" name="deliveryDate" class="form-control" id="deliveryDate"/>
-        </div>
-        <div class="mb-3">
-            <label for="deliveryLocation" class="form-label">Delivery Location</label>
-            <input type="text" name="deliveryLocation" class="form-control" id="deliveryLocation"/>
-        </div>
-
-
-
-        <div class="mb-3">
-            <label for="ChildrenNumber" class="form-label">Children's Number</label>
-            <input type="number" name="ChildrenNumber" class="form-control" id="ChildrenNumber"/>
-        </div>
-
-
-        <div class="mb-3">
-            <label for="CnapsNumber" class="form-label">CNAPS Number</label>
-            <input type="text" name="CnapsNumber" class="form-control" id="CnapsNumber"/>
+        <h5>Others</h5>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="CnapsNumber" class="form-label">CNAPS Number</label>
+                <input type="text" name="CnapsNumber" class="form-control" id="CnapsNumber"/>
+            </div>
+            <div class="mb-3">
+                <label for="ChildrenNumber" class="form-label">Children's Number</label>
+                <input type="number" name="ChildrenNumber" class="form-control" id="ChildrenNumber"/>
+            </div>
+            <!-- Add the other remaining fields here... -->
         </div>
         <div class="button-container d-flex align-items-center justify-content-around">
             <button class="btn btn-success" type="submit">Update</button>

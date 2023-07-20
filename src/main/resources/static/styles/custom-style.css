@@ -1,7 +1,10 @@
-input {
+input, select {
     width: 220px !important;
+    height: 50px !important;
 }
-
+input[name="image"] {
+    display: none;
+}
 .button-container {
     width: 300px;
 }
@@ -66,10 +69,26 @@ body {
 }
 
 .img-container {
-    margin-bottom: 10px;
+    position: relative;
+    border: 1px solid black;
 }
-
+.upload-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    background-color: #F0F2F5;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    position: absolute;
+    bottom: 7px;
+    left: 86px;
+}
+label[for="image"]{
+    margin-top: 8px;
+}
 .img-container img {
-    max-width: 200px;
-    max-height: 200px;
+    border: 1px solid white;
+    border-radius: 120px;
 }

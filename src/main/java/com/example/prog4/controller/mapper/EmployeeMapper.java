@@ -14,6 +14,18 @@ public class EmployeeMapper {
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
                 .birthDate(employee.getBirthDate())
+                .sex(Employee.Sex.valueOf(employee.getSex()))
+                .professionalEmail(employee.getProfessionalEmail())
+                .personalEmail(employee.getPersonalEmail())
+                .phoneNumber(employee.getPhoneNumber())
+                .CIN(employee.getCIN())
+                .post(employee.getPost())
+                .children(employee.getChildren())
+                .departingDate(employee.getDepartingDate())
+                .entranceDate(employee.getDepartingDate())
+                .address(employee.getAddress())
+                .CNAPS(employee.getCNAPS())
+                .socioProfesionalCategory(Employee.SocioProfesionalCategory.valueOf(employee.getSocioProfesionalCategory()))
                 .build();
         try {
             MultipartFile imageFile = employee.getImage();

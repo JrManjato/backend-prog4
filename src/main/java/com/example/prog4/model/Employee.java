@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -25,10 +25,54 @@ public class Employee implements Serializable {
     private String firstName;
     private String lastName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthDate;
+    private Date birthDate;
 
     @Lob
     private String image;
     private String registrationNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="sex")
+    private Sex sex;
+
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private String address;
+
+    @Column
+    private String personalEmail;
+
+    @Column
+    private String professionalEmail;
+
+    @Column
+    private String CIN;
+
+    @Column
+    private String post;
+
+    @Column
+    private int children;
+
+    @Column
+    private Date entranceDate;
+
+    @Column
+    private Date departingDate;
+
+    @Column
+    private String CNAPS;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private SocioProfesionalCategory socioProfesionalCategory;
+
+    public enum Sex {
+        Male, Female
+    }
+    public enum SocioProfesionalCategory {
+        M1, M2, OS1, OS2, OS3, OP1A, OP1B, OP2A, OP2B, OP3
+    }
 }

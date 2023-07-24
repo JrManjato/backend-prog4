@@ -8,7 +8,19 @@ create table if not exists "employee"
     last_name            varchar,
     image               oid,
     registration_number varchar,
-    birth_date          date
+    birth_date          date,
+    sex VARCHAR(8),
+    phone_number VARCHAR(30),
+    address VARCHAR(255),
+    professional_email VARCHAR(50) UNIQUE,
+    personal_email VARCHAR(50) UNIQUE,
+    CIN VARCHAR(30) UNIQUE,
+    post VARCHAR(200),
+    children SMALLINT,
+    departing_date DATE,
+    entrance_date DATE,
+    socio_profesional_category VARCHAR(3),
+    CNAPS VARCHAR(30)
 );
 
 CREATE SEQUENCE if not exists employ_ref_sequence

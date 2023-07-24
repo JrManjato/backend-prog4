@@ -9,10 +9,10 @@
     <script th:src="@{/scripts/index.js}" defer></script>
 </head>
 <body>
-<div class="input">
-    <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data">
-        <h4 class="mb-5">Edit Employee</h4>
-        <div class="mb-3 d-flex flex-row">
+<div class="profile-form d-flex align-items-center flex-column">
+    <h4 class="operation-title">Edit Employee</h4>
+    <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data" class="form">
+        <div class="mb-3 d-flex flex-row align-items-center">
             <div class="img-container">
                 <img th:src="'data:image/jpeg;base64,' + ${employee.getImage()}" alt="image" height="120" width="120"/>
                 <div class="upload-img">
@@ -26,6 +26,7 @@
                 <h5 th:text="${employee.registrationNumber}" class="ref"></h5>
             </div>
         </div>
+        <hr/>
         <h5>General Information</h5>
         <div class="d-flex flex-row">
             <div class="mb-3 me-5">
@@ -38,12 +39,18 @@
             </div>
         </div>
         <div class="d-flex flex-row">
-            <div class="mb-3 me-5">
-                <label for="gender" class="form-label">Gender</label><br/>
-                <select id="gender">
-                    <option value="Male">Male</option>
-                    <option value="Female" selected>Female</option>
-                </select>
+            <div class="mb-3 me-5 radio-button-gp">
+                <label class="form-label">Gender</label><br />
+                <label for="male" class="me-5">
+                    <input type="radio" id="male" name="gender" value="Male"
+                           style="width: 20px !important; height: 15px !important;">
+                   Male
+                </label>
+                <label for="female">
+                    <input type="radio" id="female" name="gender" value="Female"
+                           style="width: 20px !important; height: 15px !important;">
+                    Female
+                </label>
             </div>
             <div class="mb-3">
                 <label for="birthDate" class="form-label">Birthdate</label>
@@ -61,6 +68,7 @@
                 <input type="email" name="personalEmail" class="form-control" id="personal-email"/>
             </div>
         </div>
+        <hr/>
         <h5>Job Information</h5>
         <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
             <div class="mb-3 me-5">
@@ -93,6 +101,7 @@
                 <input type="email" name="professionalEmail" class="form-control" id="professional-email"/>
             </div>
         </div>
+        <hr/>
         <h5>National Identity Card</h5>
         <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
             <div class="mb-3 me-5">
@@ -110,6 +119,7 @@
                 <input type="date" name="deliveryDate" class="form-control" id="deliveryDate"/>
             </div>
         </div>
+        <hr/>
         <h5>Others</h5>
         <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
             <div class="mb-3 me-5">
@@ -122,6 +132,7 @@
             </div>
             <!-- Add the other remaining fields here... -->
         </div>
+        <hr/>
         <div class="button-container d-flex align-items-center justify-content-around">
             <button class="btn btn-success" type="submit">Update</button>
             <button class="btn btn-secondary" type="button"><a href="/">Cancel</a></button>

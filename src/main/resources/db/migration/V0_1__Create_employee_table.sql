@@ -19,7 +19,7 @@ create table if not exists "employee"
     children SMALLINT,
     departing_date DATE,
     entrance_date DATE,
-    socio_profesional_category VARCHAR(3),
+    socio_profesional_category VARCHAR(5),
     CNAPS VARCHAR(30)
 );
 

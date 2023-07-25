@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -25,7 +25,7 @@ public class Employee implements Serializable {
     private String firstName;
     private String lastName;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Lob
     private String image;
@@ -57,10 +57,10 @@ public class Employee implements Serializable {
     private int children;
 
     @Column
-    private Date entranceDate;
+    private LocalDate entranceDate;
 
     @Column
-    private Date departingDate;
+    private LocalDate departingDate;
 
     @Column
     private String CNAPS;

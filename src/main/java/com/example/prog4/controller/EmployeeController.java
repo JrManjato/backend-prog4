@@ -2,6 +2,7 @@ package com.example.prog4.controller;
 
 
 import com.example.prog4.controller.mapper.EmployeeMapper;
+import com.example.prog4.model.EditEmployee;
 import com.example.prog4.model.Employee;
 import com.example.prog4.model.RestEmployee;
 import com.example.prog4.service.EmployeeService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -44,8 +46,14 @@ public class EmployeeController {
 
     @PostMapping("/saveEmployee")
     public String saveEmployee(@ModelAttribute("employee") RestEmployee restEmployee) {
-        System.out.println(restEmployee);
         Employee employee = mapper.toDomain(restEmployee);
+        service.saveOne(employee);
+        return "redirect:/";
+    }
+
+    @PostMapping("/editEmployee")
+    public String editEmployee(@ModelAttribute("employee") EditEmployee editEmployee) {
+        Employee employee = mapper.toDomain(editEmployee);
         service.saveOne(employee);
         return "redirect:/";
     }

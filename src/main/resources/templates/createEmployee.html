@@ -10,20 +10,20 @@
 </head>
 <body>
 <div class="profile-form d-flex align-items-center flex-column">
-    <h4 class="operation-title">Edit Employee</h4>
+    <h4 class="operation-title">Create Employee</h4>
     <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data" class="form">
         <div class="mb-3 d-flex flex-row align-items-center">
             <div class="img-container">
-                <img th:src="'data:image/jpeg;base64,' + ${employee.getImage()}" alt="image" height="120" width="120"/>
+                <img th:src="@{images/images.png}" alt="image" height="120" width="120"/>
                 <div class="upload-img">
                     <label for="image" class="form-label"><i class="fas fa-camera"></i></label>
                     <input type="file" class="form-control" id="image" name="image"/>
                 </div>
             </div>
             <div class="d-flex flex-column">
-                <h3>-- // --</h3>
-                <h4 class="function-info">-- // --</h4>
-                <h5 class="ref">-- // --</h5>
+                <h3>-- --</h3>
+                <h4 class="function-info">-- --</h4>
+                <h5 class="ref">-- --</h5>
             </div>
         </div>
         <hr/>
@@ -137,7 +137,7 @@
 <script>
     // JavaScript code to log a message when the form is submitted and data is saved
     document.querySelector('.form').addEventListener('submit', function (event) {
-        console.log(event.target.value);
+        console.log(event);
     });
 </script>
 </body>

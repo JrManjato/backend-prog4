@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="d-flex flex-column align-items-center justify-content-center h-100 w-100">
-    <form action="/sort" method="get" class="p-2 w-100 d-flex flex-row  border">
+    <form action="/sort" method="GET" class="p-2 w-100 d-flex flex-row">
         <div class="mb-2 ps-2 w-40 border" style="width: 40%">
             <label for="sortAttribute" class="block text-sm font-medium text-gray-700">Trier par :</label>
             <select id="sortAttribute" name="sortAttribute"
@@ -45,6 +45,11 @@
         <button class="btn btn-success ms-2" style="height: 53px">
             <a class="nav-link active" href="/createEmployee" style="font-size: 14px">Create Employee</a>
         </button>
+    </form>
+    <form action="/search" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
+        <label for="search" class="form-label mx-3">Search</label>
+        <input type="text" name="word" class="form-control" id="search" style="height: 53px" required>
+        <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">Search</button>
     </form>
     <table class="table">
         <thead>

@@ -2,6 +2,7 @@ package com.example.prog4.service;
 
 import com.example.prog4.model.Employee;
 import com.example.prog4.repository.EmployeeRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,12 @@ public class EmployeeService {
                 Sort.by(atr).descending();
 
         return repository.findAll(sort);
+    }
+
+    @Transactional
+
+    public List<Employee> searchByWord(String word) {
+        return repository.searchByWord(word);
     }
 
 }

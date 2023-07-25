@@ -51,6 +51,20 @@
         <input type="text" name="word" class="form-control" id="search" style="height: 53px" required>
         <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">Search</button>
     </form>
+    <form action="/filter" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
+        <label for="search" class="form-label mx-3">Search by date range</label>
+        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+            <div class="mb-3 me-5">
+                <label for="entranceDate" class="form-label">Entrance Date</label>
+                <input type="date" name="entranceDate" class="form-control" id="entranceDate"/>
+            </div>
+            <div class="mb-3">
+                <label for="departingDate" class="form-label">Departing Date</label>
+                <input type="date" name="departingDate" class="form-control" id="departingDate"/>
+            </div>
+        </div>
+        <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">Search</button>
+    </form>
     <table class="table">
         <thead>
         <tr>

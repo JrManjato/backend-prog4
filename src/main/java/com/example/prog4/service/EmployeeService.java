@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +49,8 @@ public class EmployeeService {
         return repository.searchByWord(word);
     }
 
+    @Transactional
+    public List<Employee> findEmployeesWithinDateRange(LocalDate entranceDate, LocalDate departingDate) {
+        return repository.findAllEmployeesWithinDateRange(entranceDate, departingDate);
+    }
 }

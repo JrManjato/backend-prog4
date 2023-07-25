@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -19,4 +21,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
           "OR LOWER(post) LIKE LOWER(CONCAT('%', :word, '%')))",
           nativeQuery = true)
   List<Employee> searchByWord(String word);
+
+  @Query(value = "SELECT * FROM employee " +
+          "WHERE entrance_date >= :startDate AND departing_date <= :endDate",
+          nativeQuery = true)
+  List<Employee> findAllEmployeesWithinDateRange(LocalDate startDate, LocalDate endDate);
 }

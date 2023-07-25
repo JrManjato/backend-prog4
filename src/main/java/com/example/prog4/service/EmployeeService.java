@@ -3,6 +3,7 @@ package com.example.prog4.service;
 import com.example.prog4.model.Employee;
 import com.example.prog4.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +33,12 @@ public class EmployeeService {
     public void saveOne(Employee employee){
         repository.save(employee);
     }
+
+    public List<Employee> sort(String sortOrder, String atr) {
+        Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(atr).ascending() :
+                Sort.by(atr).descending();
+
+        return repository.findAll(sort);
+    }
+
 }

@@ -9,6 +9,7 @@
     <script th:src="@{/scripts/index.js}" defer></script>
 </head>
 <body>
+<div th:insert="company.html::header"></div>
 <div class="profile-form d-flex align-items-center flex-column">
     <h4 class="operation-title">Create Employee</h4>
     <form action="/saveEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data" class="form">
@@ -134,6 +135,7 @@
         </div>
     </form>
 </div>
+<div th:insert="company::footer"></div>
 <script>
     // JavaScript code to log a message when the form is submitted and data is saved
     document.querySelector('.form').addEventListener('submit', function (event) {

@@ -1,9 +1,9 @@
 create extension if not exists "uuid-ossp";
 
-create table if not exists "compagny"
+create table if not exists "company"
 (
     id                  varchar
-        constraint compagny_pk primary key default uuid_generate_v4(),
+        constraint company_pk primary key default uuid_generate_v4(),
     name VARCHAR(50),
     description VARCHAR(250),
     logo oid,

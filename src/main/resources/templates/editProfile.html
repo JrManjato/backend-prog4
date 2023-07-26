@@ -9,6 +9,7 @@
     <script th:src="@{/scripts/index.js}" defer></script>
 </head>
 <body>
+<div th:insert="company.html::header"></div>
 <div class="profile-form d-flex align-items-center flex-column">
     <h4 class="operation-title">Edit Employee</h4>
     <form action="/editEmployee" method="POST" th:object="${employee}" enctype="multipart/form-data" class="form">
@@ -141,6 +142,7 @@
         </div>
     </form>
 </div>
+<div th:insert="company::footer"></div>
 <script>
     function showImageValue() {
         const imageInput = document.getElementById('image');

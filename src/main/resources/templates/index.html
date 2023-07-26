@@ -14,57 +14,65 @@
     </style>
 </head>
 <body>
+<div th:insert="company.html::header"></div>
 <div class="d-flex flex-column align-items-center justify-content-center h-100 w-100">
-    <form action="/sort" method="GET" class="p-2 w-100 d-flex flex-row">
-        <div class="mb-2 ps-2 w-40 border" style="width: 40%">
-            <label for="sortAttribute" class="block text-sm font-medium text-gray-700">Trier par :</label>
-            <select id="sortAttribute" name="sortAttribute"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    style="width: 200px"
-            >
-                <option value="lastName">Nom</option>
-                <option value="firstName">Prénom</option>
-                <option value="sex">Sexe</option>
-                <option value="post">Fonction</option>
-            </select>
-        </div>
-        <div class="mb-2 ps-2 border" style="width: 40%">
-            <label class="block text-sm font-medium text-gray-700">Ordre de tri :</label>
-            <div class="mt-1">
-                <label for="radioButton1" class="inline-flex items-center">
-                    <input type="radio" name="sortOrder" id="radioButton1" class="formbold-radio" value="asc">
-                    <span class="ml-2 text-sm text-gray-700">Croissant</span>
-                </label>
-                <label for="radioButton2" class="ml-4 inline-flex items-center">
-                    <input type="radio" name="sortOrder" id="radioButton2" class="formbold-radio" value="desc">
-                    <span class="ml-2 text-sm text-gray-700">Décroissant</span>
-                </label>
+    <div class="h-100 w-100" style="background-color: #f2f2f2">
+        <form action="/sort" method="GET" class="p-2 w-100 d-flex flex-row">
+            <div class="mb-2 ps-2 w-40 border" style="width: 40%">
+                <label for="sortAttribute" class="block text-sm font-medium text-gray-700">Trier par :</label>
+                <select id="sortAttribute" name="sortAttribute"
+                        class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        style="width: 200px"
+                >
+                    <option value="lastName">Nom</option>
+                    <option value="firstName">Prénom</option>
+                    <option value="sex">Sexe</option>
+                    <option value="post">Fonction</option>
+                </select>
             </div>
-        </div>
-        <button type="submit" class="ms-2 btn btn-primary" style="width: 10%; height: 53px; font-size: 14px">Trier</button>
-        <button class="btn btn-success ms-2" style="height: 53px">
-            <a class="nav-link active" href="/createEmployee" style="font-size: 14px">Create Employee</a>
-        </button>
-    </form>
-    <form action="/search" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
-        <label for="search" class="form-label mx-3">Search</label>
-        <input type="text" name="word" class="form-control" id="search" style="height: 53px" required>
-        <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">Search</button>
-    </form>
-    <form action="/filter" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
-        <label for="search" class="form-label mx-3">Search by date range</label>
-        <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
-            <div class="mb-3 me-5">
-                <label for="entranceDate" class="form-label">Entrance Date</label>
-                <input type="date" name="entranceDate" class="form-control" id="entranceDate"/>
+            <div class="mb-2 ps-2 border" style="width: 40%">
+                <label class="block text-sm font-medium text-gray-700">Ordre de tri :</label>
+                <div class="mt-1">
+                    <label for="radioButton1" class="inline-flex items-center">
+                        <input type="radio" name="sortOrder" id="radioButton1" class="formbold-radio" value="asc">
+                        <span class="ml-2 text-sm text-gray-700">Croissant</span>
+                    </label>
+                    <label for="radioButton2" class="ml-4 inline-flex items-center">
+                        <input type="radio" name="sortOrder" id="radioButton2" class="formbold-radio" value="desc">
+                        <span class="ml-2 text-sm text-gray-700">Décroissant</span>
+                    </label>
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="departingDate" class="form-label">Departing Date</label>
-                <input type="date" name="departingDate" class="form-control" id="departingDate"/>
+            <button type="submit" class="ms-2 btn btn-primary" style="width: 10%; height: 53px; font-size: 14px">Trier
+            </button>
+            <button class="btn btn-success ms-2" style="height: 53px">
+                <a class="nav-link active" href="/createEmployee" style="font-size: 14px">Create Employee</a>
+            </button>
+        </form>
+        <form action="/search" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
+            <label for="search" class="form-label mx-3">Search</label>
+            <input type="text" name="word" class="form-control" id="search" style="height: 53px" required>
+            <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">
+                Search
+            </button>
+        </form>
+        <form action="/filter" method="GET" class="d-flex align-items-center p-2 w-100 d-flex flex-row">
+            <label for="search" class="form-label mx-3">Search by date range</label>
+            <div class="d-flex flex-row"> <!-- Group 2 by 2 horizontally -->
+                <div class="mb-3 me-5">
+                    <label for="entranceDate" class="form-label">Entrance Date</label>
+                    <input type="date" name="entranceDate" class="form-control" id="entranceDate"/>
+                </div>
+                <div class="mb-3">
+                    <label for="departingDate" class="form-label">Departing Date</label>
+                    <input type="date" name="departingDate" class="form-control" id="departingDate"/>
+                </div>
             </div>
-        </div>
-        <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">Search</button>
-    </form>
+            <button type="submit" class="ms-2 btn btn-secondary" style="width: 10%; height: 53px; font-size: 14px">
+                Search
+            </button>
+        </form>
+    </div>
     <table class="table">
         <thead>
         <tr>
@@ -94,6 +102,7 @@
         </tbody>
     </table>
 </div>
+<div th:insert="company::footer"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const rows = document.querySelectorAll('[data-id]');

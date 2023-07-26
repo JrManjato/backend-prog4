@@ -1,14 +1,14 @@
 package com.example.prog4.controller;
 
 
-import com.example.prog4.controller.mapper.CompagnyMapper;
+import com.example.prog4.controller.mapper.CompanyMapper;
 import com.example.prog4.controller.mapper.EmployeeMapper;
-import com.example.prog4.model.Compagny;
+import com.example.prog4.model.Company;
 import com.example.prog4.model.EditEmployee;
 import com.example.prog4.model.Employee;
-import com.example.prog4.model.ViewCompagny;
+import com.example.prog4.model.ViewCompany;
 import com.example.prog4.model.ViewEmployee;
-import com.example.prog4.service.CompagnyService;
+import com.example.prog4.service.CompanyService;
 import com.example.prog4.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -29,15 +29,17 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeController {
   private EmployeeService service;
-  private CompagnyService compagnyService;
+  private CompanyService companyService;
   private EmployeeMapper employeeMapper;
 
-  private CompagnyMapper compagnyMapper;
+  private CompanyMapper companyMapper;
 
   @GetMapping("/index")
   public String index(Model model) {
     List<Employee> employees = service.getAll();
     model.addAttribute("employees", employees);
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "index";
   }
 
@@ -45,39 +47,43 @@ public class EmployeeController {
   public String index(@RequestParam("id") String employeeId, Model model) {
     Employee employee = service.getOne(employeeId);
     model.addAttribute("employee", employee);
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "editProfile";
   }
 
   @GetMapping("/createEmployee")
   public String createEmployee(Model model) {
     model.addAttribute("employee", ViewEmployee.builder().build());
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "createEmployee";
   }
 
   @GetMapping("/")
-  public String createCompagny(Model model) {
-    model.addAttribute("compagny", ViewCompagny.builder().build());
-    return "createCompagny";
+  public String createCompany(Model model) {
+    model.addAttribute("company", ViewCompany.builder().build());
+    return "createCompany";
   }
 
   @PostMapping("/saveEmployee")
   public String saveEmployee(@ModelAttribute("employee") ViewEmployee viewEmployee) {
     Employee employee = employeeMapper.toDomain(viewEmployee);
     service.saveOne(employee);
-    return "index";
+    return "redirect:/index";
   }
 
-  @PostMapping("/saveCompagny")
-  public String saveCompagny(@ModelAttribute("compagny") ViewCompagny viewCompagny) {
-    Compagny compagny = compagnyMapper.toDomain(viewCompagny);
-    compagnyService.saveOne(compagny);
-    return "index";
+  @PostMapping("/saveCompany")
+  public String saveCompany(@ModelAttribute("company") ViewCompany viewCompany) {
+    Company company = companyMapper.toDomain(viewCompany);
+    companyService.saveOne(company);
+    return "redirect:/index";
   }
   @PostMapping("/editEmployee")
   public String editEmployee(@ModelAttribute("employee") EditEmployee editEmployee) {
     Employee employee = employeeMapper.toDomain(editEmployee);
     service.saveOne(employee);
-    return "index";
+    return "redirect:/index";
   }
 
   @GetMapping("/sort")
@@ -86,6 +92,8 @@ public class EmployeeController {
                          Model model) {
     List<Employee> employees = service.sort(sortOrder, sortAttribute);
     model.addAttribute("employees", employees);
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "index";
   }
 
@@ -93,6 +101,8 @@ public class EmployeeController {
   public String SearchPage(@RequestParam("word") String word, Model model) {
     List<Employee> employees = service.searchByWord(word);
     model.addAttribute("employees", employees);
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "index";
   }
 
@@ -102,6 +112,8 @@ public class EmployeeController {
                                   Model model) {
     List<Employee> employees = service.findEmployeesWithinDateRange(entranceDate, departingDate);
     model.addAttribute("employees", employees);
+    List<Company> companies = companyService.getCompanies();
+    model.addAttribute("company", companies.get(0));
     return "index";
   }
 

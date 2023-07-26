@@ -21,10 +21,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "\"compagny\"")
+@Table(name = "\"company\"")
 @EqualsAndHashCode
 @ToString
-public class Compagny implements Serializable {
+public class Company implements Serializable {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private String id;

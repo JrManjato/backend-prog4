@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Builder
-public class ViewCompagny implements Serializable {
+public class ViewCompany implements Serializable {
   private String name;
   private String description;
   private String email;

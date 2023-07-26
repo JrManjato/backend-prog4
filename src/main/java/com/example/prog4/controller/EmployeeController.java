@@ -4,8 +4,9 @@ package com.example.prog4.controller;
 import com.example.prog4.controller.mapper.EmployeeMapper;
 import com.example.prog4.model.EditEmployee;
 import com.example.prog4.model.Employee;
-import com.example.prog4.model.RestEmployee;
+import com.example.prog4.model.ShowEmployee;
 import com.example.prog4.service.EmployeeService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,12 +43,12 @@ public class EmployeeController {
 
   @GetMapping("/createEmployee")
   public String createEmployee(Model model) {
-    model.addAttribute("employee", RestEmployee.builder().build());
+    model.addAttribute("employee", ShowEmployee.builder().build());
     return "createEmployee";
   }
 
   @PostMapping("/saveEmployee")
-  public String saveEmployee(@ModelAttribute("employee") RestEmployee restEmployee) {
+  public String saveEmployee(@ModelAttribute("employee") ShowEmployee restEmployee) {
     Employee employee = mapper.toDomain(restEmployee);
     service.saveOne(employee);
     return "redirect:/";
@@ -81,5 +84,44 @@ public class EmployeeController {
     List<Employee> employees = service.findEmployeesWithinDateRange(entranceDate, departingDate);
     model.addAttribute("employees", employees);
     return "index";
+  }
+
+  @GetMapping("/export")
+  public void exportToCSV(@RequestParam("employeeId") String id, HttpServletResponse response) {
+    try {
+      Employee employee = service.getOne(id);
+
+      List<String> data = new ArrayList<>();
+      data.add("Registration Number : " + employee.getRegistrationNumber());
+      data.add("Firstname : " + employee.getFirstName());
+      data.add("Lastname : " + employee.getLastName());
+      data.add("DOB : " + employee.getBirthDate());
+      data.add("Gender : " + employee.getSex());
+      data.add("Post : " + employee.getPost());
+      data.add("Social Professional Category : " + employee.getSocioProfesionalCategory());
+      data.add("CNAPS : " + employee.getCNAPS());
+      data.add("Personal Email : " + employee.getPersonalEmail());
+      data.add("Professional Email : " + employee.getProfessionalEmail());
+      data.add("Phone Number : " + employee.getPhoneNumber());
+      data.add("Address : " + employee.getAddress());
+      data.add("Entrance Date : " + employee.getEntranceDate());
+      data.add("Departing Date : " + employee.getDepartingDate());
+      data.add("Number Of Children : " + employee.getChildren());
+
+      String fileName = "File_" + employee.getFirstName() + employee.getLastName() + ".csv";
+      response.setContentType("text/csv");
+      response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+      PrintWriter writer = response.getWriter();
+
+      for (String row : data) {
+        writer.println(row);
+      }
+
+      writer.flush();
+      writer.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

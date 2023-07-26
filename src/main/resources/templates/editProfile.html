@@ -130,9 +130,14 @@
             <!-- Add the other remaining fields here... -->
         </div>
         <hr/>
-        <div class="button-container d-flex align-items-center justify-content-around">
+        <div class="button-container d-flex align-items-center justify-content-around w-100">
             <button class="btn btn-success" type="submit">Update</button>
             <button class="btn btn-secondary" type="button"><a href="/">Cancel</a></button>
+            <button class="btn btn-warning" type="button">
+                <a th:href="@{/export(employeeId=${employee.id})}">
+                    Export CSV
+                </a>
+            </button>
         </div>
     </form>
 </div>

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class RestEmployee implements Serializable {
+public class ShowEmployee implements Serializable {
     private String firstName;
     private String lastName;
     @DateTimeFormat(pattern = "dd-MM-yyyy")

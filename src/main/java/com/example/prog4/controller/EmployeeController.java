@@ -1,10 +1,14 @@
 package com.example.prog4.controller;
 
 
+import com.example.prog4.controller.mapper.CompagnyMapper;
 import com.example.prog4.controller.mapper.EmployeeMapper;
+import com.example.prog4.model.Compagny;
 import com.example.prog4.model.EditEmployee;
 import com.example.prog4.model.Employee;
-import com.example.prog4.model.ShowEmployee;
+import com.example.prog4.model.ViewCompagny;
+import com.example.prog4.model.ViewEmployee;
+import com.example.prog4.service.CompagnyService;
 import com.example.prog4.service.EmployeeService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -25,7 +29,10 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeController {
   private EmployeeService service;
-  private EmployeeMapper mapper;
+  private CompagnyService compagnyService;
+  private EmployeeMapper employeeMapper;
+
+  private CompagnyMapper compagnyMapper;
 
   @GetMapping("/")
   public String index(Model model) {
@@ -43,20 +50,32 @@ public class EmployeeController {
 
   @GetMapping("/createEmployee")
   public String createEmployee(Model model) {
-    model.addAttribute("employee", ShowEmployee.builder().build());
+    model.addAttribute("employee", ViewEmployee.builder().build());
     return "createEmployee";
   }
 
+  @GetMapping("/createCompagny")
+  public String createCompagny(Model model) {
+    model.addAttribute("compagny", ViewCompagny.builder().build());
+    return "createCompagny";
+  }
+
   @PostMapping("/saveEmployee")
-  public String saveEmployee(@ModelAttribute("employee") ShowEmployee restEmployee) {
-    Employee employee = mapper.toDomain(restEmployee);
+  public String saveEmployee(@ModelAttribute("employee") ViewEmployee viewEmployee) {
+    Employee employee = employeeMapper.toDomain(viewEmployee);
     service.saveOne(employee);
     return "redirect:/";
   }
 
+  @PostMapping("/saveCompagny")
+  public String saveCompagny(@ModelAttribute("compagny") ViewCompagny viewCompagny) {
+    Compagny compagny = compagnyMapper.toDomain(viewCompagny);
+    compagnyService.saveOne(compagny);
+    return "redirect:/";
+  }
   @PostMapping("/editEmployee")
   public String editEmployee(@ModelAttribute("employee") EditEmployee editEmployee) {
-    Employee employee = mapper.toDomain(editEmployee);
+    Employee employee = employeeMapper.toDomain(editEmployee);
     service.saveOne(employee);
     return "redirect:/";
   }

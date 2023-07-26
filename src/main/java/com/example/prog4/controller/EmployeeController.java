@@ -34,7 +34,7 @@ public class EmployeeController {
 
   private CompagnyMapper compagnyMapper;
 
-  @GetMapping("/")
+  @GetMapping("/index")
   public String index(Model model) {
     List<Employee> employees = service.getAll();
     model.addAttribute("employees", employees);
@@ -54,7 +54,7 @@ public class EmployeeController {
     return "createEmployee";
   }
 
-  @GetMapping("/createCompagny")
+  @GetMapping("/")
   public String createCompagny(Model model) {
     model.addAttribute("compagny", ViewCompagny.builder().build());
     return "createCompagny";
@@ -64,20 +64,20 @@ public class EmployeeController {
   public String saveEmployee(@ModelAttribute("employee") ViewEmployee viewEmployee) {
     Employee employee = employeeMapper.toDomain(viewEmployee);
     service.saveOne(employee);
-    return "redirect:/";
+    return "index";
   }
 
   @PostMapping("/saveCompagny")
   public String saveCompagny(@ModelAttribute("compagny") ViewCompagny viewCompagny) {
     Compagny compagny = compagnyMapper.toDomain(viewCompagny);
     compagnyService.saveOne(compagny);
-    return "redirect:/";
+    return "index";
   }
   @PostMapping("/editEmployee")
   public String editEmployee(@ModelAttribute("employee") EditEmployee editEmployee) {
     Employee employee = employeeMapper.toDomain(editEmployee);
     service.saveOne(employee);
-    return "redirect:/";
+    return "index";
   }
 
   @GetMapping("/sort")

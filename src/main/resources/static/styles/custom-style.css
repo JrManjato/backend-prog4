@@ -2,7 +2,7 @@ input, select {
     width: 420px !important;
     height: 40px !important;
 }
-input[name="image"] {
+input[name="image"], input[name="logo"] {
     display: none;
 }
 

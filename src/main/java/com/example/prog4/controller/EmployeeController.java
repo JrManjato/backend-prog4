@@ -1,158 +1,59 @@
 package com.example.prog4.controller;
 
-
-import com.example.prog4.controller.mapper.CompanyMapper;
 import com.example.prog4.controller.mapper.EmployeeMapper;
-import com.example.prog4.model.Company;
-import com.example.prog4.model.EditEmployee;
+import com.example.prog4.controller.validator.EmployeeValidator;
 import com.example.prog4.model.Employee;
-import com.example.prog4.model.ViewCompany;
-import com.example.prog4.model.ViewEmployee;
-import com.example.prog4.service.CompanyService;
+import com.example.prog4.model.EmployeeFilter;
+import com.example.prog4.service.CSVUtils;
 import com.example.prog4.service.EmployeeService;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/server/employee")
 public class EmployeeController {
-  private EmployeeService service;
-  private CompanyService companyService;
-  private EmployeeMapper employeeMapper;
+    private EmployeeMapper employeeMapper;
+    private EmployeeValidator employeeValidator;
+    private EmployeeService employeeService;
 
-  private CompanyMapper companyMapper;
+    @GetMapping("/list/csv")
+    public ResponseEntity<byte[]> getCsv(HttpSession session) {
+        EmployeeFilter filters = (EmployeeFilter) session.getAttribute("employeeFiltersSession");
+        List<Employee> data = employeeService.getAll(filters).stream().map(employeeMapper::toView).toList();
 
-  @GetMapping("/index")
-  public String index(Model model) {
-    List<Employee> employees = service.getAll();
-    model.addAttribute("employees", employees);
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "index";
-  }
-
-  @GetMapping("/details")
-  public String index(@RequestParam("id") String employeeId, Model model) {
-    Employee employee = service.getOne(employeeId);
-    model.addAttribute("employee", employee);
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "editProfile";
-  }
-
-  @GetMapping("/createEmployee")
-  public String createEmployee(Model model) {
-    model.addAttribute("employee", ViewEmployee.builder().build());
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "createEmployee";
-  }
-
-  @GetMapping("/")
-  public String createCompany(Model model) {
-    model.addAttribute("company", ViewCompany.builder().build());
-    return "createCompany";
-  }
-
-  @PostMapping("/saveEmployee")
-  public String saveEmployee(@ModelAttribute("employee") ViewEmployee viewEmployee) {
-    Employee employee = employeeMapper.toDomain(viewEmployee);
-    service.saveOne(employee);
-    return "redirect:/index";
-  }
-
-  @PostMapping("/saveCompany")
-  public String saveCompany(@ModelAttribute("company") ViewCompany viewCompany) {
-    Company company = companyMapper.toDomain(viewCompany);
-    companyService.saveOne(company);
-    return "redirect:/index";
-  }
-  @PostMapping("/editEmployee")
-  public String editEmployee(@ModelAttribute("employee") EditEmployee editEmployee) {
-    Employee employee = employeeMapper.toDomain(editEmployee);
-    service.saveOne(employee);
-    return "redirect:/index";
-  }
-
-  @GetMapping("/sort")
-  public String SortPage(@RequestParam(value = "sortAttribute", defaultValue = "lastName") String sortAttribute,
-                         @RequestParam(value = "sortOrder", defaultValue = "asc") String sortOrder,
-                         Model model) {
-    List<Employee> employees = service.sort(sortOrder, sortAttribute);
-    model.addAttribute("employees", employees);
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "index";
-  }
-
-  @GetMapping("/search")
-  public String SearchPage(@RequestParam("word") String word, Model model) {
-    List<Employee> employees = service.searchByWord(word);
-    model.addAttribute("employees", employees);
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "index";
-  }
-
-  @GetMapping("/filter")
-  public String SearchByDateRange(@RequestParam("entranceDate") LocalDate entranceDate,
-                                  @RequestParam("departingDate") LocalDate departingDate,
-                                  Model model) {
-    List<Employee> employees = service.findEmployeesWithinDateRange(entranceDate, departingDate);
-    model.addAttribute("employees", employees);
-    List<Company> companies = companyService.getCompanies();
-    model.addAttribute("company", companies.get(0));
-    return "index";
-  }
-
-  @GetMapping("/export")
-  public void exportToCSV(@RequestParam("employeeId") String id, HttpServletResponse response) {
-    try {
-      Employee employee = service.getOne(id);
-
-      List<String> data = new ArrayList<>();
-      data.add("Registration Number : " + employee.getRegistrationNumber());
-      data.add("Firstname : " + employee.getFirstName());
-      data.add("Lastname : " + employee.getLastName());
-      data.add("DOB : " + employee.getBirthDate());
-      data.add("Gender : " + employee.getSex());
-      data.add("Post : " + employee.getPost());
-      data.add("Social Professional Category : " + employee.getSocioProfesionalCategory());
-      data.add("CNAPS : " + employee.getCNAPS());
-      data.add("Personal Email : " + employee.getPersonalEmail());
-      data.add("Professional Email : " + employee.getProfessionalEmail());
-      data.add("Phone Number : " + employee.getPhoneNumber());
-      data.add("Address : " + employee.getAddress());
-      data.add("Entrance Date : " + employee.getEntranceDate());
-      data.add("Departing Date : " + employee.getDepartingDate());
-      data.add("Number Of Children : " + employee.getChildren());
-
-      String fileName = "File_" + employee.getFirstName() + employee.getLastName() + ".csv";
-      response.setContentType("text/csv");
-      response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-
-      PrintWriter writer = response.getWriter();
-
-      for (String row : data) {
-        writer.println(row);
-      }
-
-      writer.flush();
-      writer.close();
-    } catch (Exception e) {
-      e.printStackTrace();
+        String csv = CSVUtils.convertToCSV(data);
+        byte[] bytes = csv.getBytes();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        headers.setContentDispositionFormData("attachment", "employees.csv");
+        headers.setContentLength(bytes.length);
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
-  }
+
+    @GetMapping("/list/filters/clear")
+    public String clearFilters(HttpSession session) {
+        session.removeAttribute("employeeFilters");
+        return "redirect:/employee/list";
+    }
+
+    @PostMapping("/createOrUpdate")
+    public String saveOne(@ModelAttribute Employee employee) {
+        employeeValidator.validate(employee);
+        com.example.prog4.repository.entity.Employee domain = employeeMapper.toDomain(employee);
+        employeeService.saveOne(domain);
+        return "redirect:/employee/list";
+    }
 }

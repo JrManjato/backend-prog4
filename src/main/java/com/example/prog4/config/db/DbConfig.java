@@ -7,16 +7,18 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 public class DbConfig {
+
     public static LocalContainerEntityManagerFactoryBean entityManagerCreator(DataSource dataSource, String packageToScan) {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan(packageToScan);
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter((vendorAdapter));
+        entityManagerFactoryBean.setDataSource(dataSource);
+        entityManagerFactoryBean.setPackagesToScan(packageToScan);
 
-        HashMap<String, Object> properties = new HashMap<>();
-        em.setJpaPropertyMap(properties);
-        return em;
+        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+
+        entityManagerFactoryBean.setJpaPropertyMap(new HashMap<>());
+
+        return entityManagerFactoryBean;
     }
 }

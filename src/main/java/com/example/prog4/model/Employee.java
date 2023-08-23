@@ -1,90 +1,48 @@
 package com.example.prog4.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import com.example.prog4.repository.entity.Position;
+import com.example.prog4.repository.entity.enums.Csp;
+import com.example.prog4.repository.entity.enums.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-@Table(name = "\"employee\"")
-@EqualsAndHashCode
 @ToString
+@AllArgsConstructor
 public class Employee implements Serializable {
-  @Id
-  @GeneratedValue(strategy = IDENTITY)
-  private String id;
+    private String id;
+    private String firstName;
+    private String lastName;
 
-  private String firstName;
-  private String lastName;
+    private MultipartFile image;
+    private String stringImage;
 
-  private LocalDate birthDate;
+    private Csp csp;
+    private Sex sex;
+    private String cin;
+    private String cnaps;
+    private String address;
+    private Integer childrenNumber;
+    private String personalEmail;
+    private String professionalEmail;
+    private String registrationNumber;
 
-  @Lob
-  private String image;
-  private String registrationNumber;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate entranceDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private LocalDate departureDate;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "sex")
-  private Sex sex;
-
-  @Column
-  private String phoneNumber;
-
-  @Column
-  private String address;
-
-  @Column
-  private String personalEmail;
-
-  @Column
-  private String professionalEmail;
-
-  @Column
-  private String CIN;
-
-  @Column
-  private String post;
-
-  @Column
-  private int children;
-
-  @Column
-  private LocalDate entranceDate;
-
-  @Column
-  private LocalDate departingDate;
-
-  @Column
-  private String CNAPS;
-
-  @Column
-  @Enumerated(EnumType.STRING)
-  private SocioProfesionalCategory socioProfesionalCategory;
-
-  public enum Sex {
-    Male, Female
-  }
-
-  public enum SocioProfesionalCategory {
-    M1, M2, OS1, OS2, OS3, OP1A, OP1B, OP2A, OP2B, OP3
-  }
+    private List<Position> positions;
+    private List<Phone> phones;
 }

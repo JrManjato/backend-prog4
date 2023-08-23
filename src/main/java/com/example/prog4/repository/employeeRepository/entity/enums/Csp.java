@@ -1,4 +1,4 @@
-package com.example.prog4.repository.entity.enums;
+package com.example.prog4.repository.employeeRepository.entity.enums;
 
 public enum Csp {
     AGRICULTURAL_WORKERS,

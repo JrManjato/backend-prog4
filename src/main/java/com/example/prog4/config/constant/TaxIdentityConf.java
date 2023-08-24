@@ -1,4 +1,4 @@
-package com.example.prog4.config.general;
+package com.example.prog4.config.constant;
 
 
 import lombok.Builder;

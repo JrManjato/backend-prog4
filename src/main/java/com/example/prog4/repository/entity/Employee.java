@@ -12,6 +12,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -53,6 +56,12 @@ public class Employee implements Serializable {
     private LocalDate departureDate;
 
     private Integer childrenNumber;
+    private BigDecimal monthlySalary;
+    @Transient
+    private int age;
+    public int getAge(){
+        return Math.toIntExact(ChronoUnit.YEARS.between(birthDate, LocalDate.now()));
+    }
 
     @Enumerated(EnumType.STRING)
     @ColumnTransformer(read = "CAST(sex AS varchar)", write = "CAST(? AS sex)")

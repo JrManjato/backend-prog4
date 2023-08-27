@@ -15,7 +15,8 @@ import static org.thymeleaf.templatemode.TemplateMode.HTML;
 
 @Component
 public class PDFUtils {
-  private static final String EMPLOYEE_HTML_TEMPLATE = "employee_card";
+
+  private static final String EMPLOYEE_HTML_TEMPLATE = "employee_pdf";
 
   public byte[] generatePdf(Employee employee,
                             CompanyConf companyConf, String template) {
@@ -39,7 +40,7 @@ public class PDFUtils {
   }
 
   private String parseCardTemplateToString(
-          Employee employee, CompanyConf companyConf, String template) {
+      Employee employee, CompanyConf companyConf, String template) {
     TemplateEngine templateEngine = configureTemplate();
     Context context = configureContext(employee, companyConf);
     return templateEngine.process(template, context);

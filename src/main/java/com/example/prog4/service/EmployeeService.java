@@ -18,8 +18,7 @@ import java.util.List;
 public class EmployeeService {
     private EmployeeRepository repository;
     private EmployeeManagerDao employeeManagerDao;
-
-    private final PDFUtils pdfUtils = new PDFUtils();
+    private final PDFUtils PDFUtils = new PDFUtils();
 
 
     public Employee getOne(String id) {
@@ -44,4 +43,5 @@ public class EmployeeService {
     public void saveOne(Employee employee) {
         repository.save(employee);
     }
+
 }

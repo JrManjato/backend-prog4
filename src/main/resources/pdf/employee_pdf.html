@@ -4,19 +4,42 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style>
-        .profile_img {
-            width: 90px;
+        body {
+            font-size: 10px;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: Helvetica, serif;
+        }
+
+        #footer {
+            width: 100%;
+            display: block;
+            position: running(footer);
+        }
+
+        @page {
+            @bottom-center {
+                content: element(footer)
+            }
+            size: A4;
+            margin-bottom: 200px;
+            margin-top: 30px;
+        }
+
+        .profile_picture {
             height: 90px;
+            width: 90px;
         }
 
         table {
-            width: 100%;
             height: 100%;
+            width: 100%;
         }
 
         tbody {
-            width: 100%;
             height: 100%;
+            width: 100%;
         }
 
         .text-right {
@@ -40,43 +63,12 @@
             height: 25%;
         }
 
-        table, thead, tbody, tr, td {
-            border: 2px solid black;
-        }
-    </style>
-    <style>
-        body {
-            box-sizing: border-box;
-            font-size: 10px;
-            font-family: Helvetica, serif;
-            padding: 0;
-            margin: 0;
-        }
-
-        #footer {
-            display: block;
-            position: running(footer);
-            width: 100%;
-        }
-
-        @page {
-            size: A4;
-            margin-top: 30px;
-            margin-bottom: 120px;
-            @bottom-center {
-                content: element(footer)
-            }
-        }
-    </style>
-    <style>
-        /* Style company logo */
         .company-logo {
             width: 100px;
             height: auto;
             margin-right: 20px;
         }
 
-        /* Style phone list */
         .list-unstyled {
             padding: 0;
             list-style: none;
@@ -85,6 +77,15 @@
         .list-unstyled li {
             margin-right: 10px;
         }
+        .f-sm {
+            font-size: 14px;
+        }
+        .f-md {
+            font-size: 16px;
+        }
+        .f-lg {
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -92,80 +93,89 @@
     <tbody class="table-head">
     <tr class="w-100">
         <td class="w-50">
-            <img th:src="${employee.stringImage}" class="profile_img"/>
+            <img th:src="${employee.stringImage}" class="profile_picture" alt="profile picture"/>
         </td>
         <td class="text-right w-50">
             <p>
-                <span>Numéro matricule : </span>
-                <span th:text="${employee.registrationNumber}"></span>
+                <span class="f-md">Numéro matricule : </span>
+                <span th:text="${employee.registrationNumber}" class="f-sm"></span>
             </p>
             <p>
-                <span>Noms : </span>
-                <span th:text="${employee.lastName}"></span>
+                <span class="f-md">Noms : </span>
+                <span th:text="${employee.lastName}" class="f-sm"></span>
             </p>
             <p>
-                <span>Prénoms : </span>
-                <span th:text="${employee.firstName}"></span>
+                <span class="f-md">Prénoms : </span>
+                <span th:text="${employee.firstName}" class="f-sm"></span>
             </p>
             <p>
-                <span>Âge : </span>
-                <span th:text="${employee.age}"></span>
+                <span class="f-md">Âge : </span>
+                <span th:text="${employee.age}" class="f-sm"></span>
             </p>
             <p>
-                <span>Date d'embauche: </span>
-                <span th:text="${employee.entranceDate}"></span>
+                <span class="f-md">Date d'embauche: </span>
+                <span th:text="${employee.entranceDate}" class="f-sm"></span>
             </p>
             <p>
-                <span>Date de départ: </span>
-                <span th:text="${employee.departureDate}"></span>
+                <span class="f-md">Date de départ: </span>
+                <span th:text="${employee.departureDate}" class="f-sm"></span>
             </p>
             <p>
-                <span>Numéro CNAPS: </span>
-                <span th:text="${employee.cnaps}"></span>
+                <span class="f-md">Numéro CNAPS: </span>
+                <span th:text="${employee.cnaps}" class="f-sm"></span>
             </p>
         </td>
     </tr>
     </tbody>
 </table>
+<hr/>
 <table>
     <tbody>
     <tr>
         <td class="text-left w-100">
-            <ul>
-                Informations sur le salaire
-                <li>
-                    <span>Salaire brut actuel: </span>
-                    <span th:text="${employee.monthlySalary}"> MGA</span>
-                </li>
-            </ul>
+                <h5 class="f-md"
+                >Informations sur le salaire
+                </h5>
+            <span class="f-md">Salaire brut actuel: </span>
+            <span th:text="${employee.monthlySalary}"
+                  class="f-sm"
+            > MGA</span>
         </td>
     </tr>
     </tbody>
 </table>
 <footer id="footer">
+    <hr/>
     <table class="column">
         <tbody>
         <tr>
             <td>
-                <img th:src="${companyConf.logo}" class="company-logo"/>
+                <img th:src="${companyConf.logo}" class="company-logo" alt="company image"/>
             </td>
             <td class="row">
-                <p th:text="${companyConf.name}"></p>
+                <p th:text="${companyConf.name}" class="f-sm"></p>
                 <div>
-                    <span>NIF: </span>
-                    <span th:text="${companyConf.taxIdentity.nif}"></span>
+                    <span class="f-md">NIF: </span>
+                    <span th:text="${companyConf.taxIdentity.nif}" class="f-sm"></span>
                 </div>
                 <div>
-                    <span>STAT: </span>
-                    <span th:text="${companyConf.name}"></span>
+                    <span class="f-md">STAT: </span>
+                    <span th:text="${companyConf.name}" class="f-sm"></span>
                 </div>
             </td>
             <td class="row">
-                <p th:text="${companyConf.address}"></p>
-                <ul class="list-unstyled" th:each="phone : ${companyConf.phones}">
+                <div>
+                    <span class="f-md">Adresse: </span>
+                    <span th:text="${companyConf.address} " class="f-sm"></span>
+                </div>
+                <span class="f-md">Téléphone: </span>
+                <ul class="list-unstyled f-sm" th:each="phone : ${companyConf.phones}">
                     <li th:text="${phone.value}"></li>
                 </ul>
-                <p th:text="${companyConf.email}"></p>
+                <div>
+                    <span class="f-md">Email: </span>
+                    <span th:text="${companyConf.email}" class="f-sm"></span>
+                </div>
             </td>
         </tr>
         </tbody>

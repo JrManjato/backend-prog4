@@ -19,6 +19,8 @@ public class EmployeeService {
     private EmployeeRepository repository;
     private EmployeeManagerDao employeeManagerDao;
 
+    private final PDFUtils pdfUtils = new PDFUtils();
+
 
     public Employee getOne(String id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found id=" + id));

@@ -67,7 +67,7 @@
             <input required id="departureDate" name="departureDate" th:field="*{departureDate}" type="date"
                    class="form-control">
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-4 col-md-6">
             <label for="sex" class="form-label">Sex</label>
             <select id="sex" name="sex" class="form-select" th:field="*{sex}">
                 <option selected value="">Chose your sex</option>
@@ -75,13 +75,18 @@
                         th:text="${sex}"></option>
             </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-lg-4 col-md-6">
             <label for="csp" class="form-label">CSP</label>
             <select id="csp" name="csp" class="form-select" th:field="*{csp}">
                 <option selected value="">Chose your CSP</option>
                 <option th:each="csp : ${T(com.example.prog4.repository.entity.enums.Csp).values()}" th:value="${csp}"
                         th:text="${csp}"></option>
             </select>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <label for="monthlySalary" class="form-label">Monthly Salary</label>
+            <input required id="monthlySalary" name="monthlySalary" th:field="*{monthlySalary}" type="number" min="0"
+                   class="form-control"/>
         </div>
         <div class="col-12 my-3"></div>
         <div class="col-6">
